@@ -5,9 +5,20 @@ export default function Feedback({ feedback }) {
     { key: "tip", label: "Tip to improve", color: "#F5A623", bg: "#FFFBF0", border: "#F5A623" },
   ];
 
+  const score = feedback.score ?? null;
+  const scoreColor = score >= 80 ? "#22C55E" : score >= 55 ? "#F5A623" : "#E8622A";
+
   return (
     <div style={styles.wrapper}>
-      <p style={styles.heading}>Your feedback</p>
+      <div style={styles.header}>
+        <p style={styles.heading}>Your feedback</p>
+        {score !== null && (
+          <div style={{ ...styles.scoreBadge, borderColor: scoreColor }}>
+            <span style={{ ...styles.scoreNum, color: scoreColor }}>{score}</span>
+            <span style={styles.scoreMax}>/100</span>
+          </div>
+        )}
+      </div>
       {items.map((item) => (
         <div
           key={item.key}
@@ -32,13 +43,38 @@ const styles = {
     gap: "10px",
     marginTop: "8px",
   },
+  header: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
+    marginBottom: "4px",
+  },
   heading: {
     fontSize: "11px",
     fontWeight: "600",
     textTransform: "uppercase",
     letterSpacing: "0.1em",
     color: "#6B7A94",
-    marginBottom: "4px",
+    margin: 0,
+  },
+  scoreBadge: {
+    display: "flex",
+    alignItems: "baseline",
+    gap: "2px",
+    padding: "4px 10px",
+    borderRadius: "20px",
+    border: "1.5px solid",
+    background: "white",
+  },
+  scoreNum: {
+    fontSize: "18px",
+    fontWeight: "800",
+    lineHeight: 1,
+  },
+  scoreMax: {
+    fontSize: "11px",
+    color: "#6B7A94",
+    fontWeight: "500",
   },
   item: {
     padding: "14px 16px",
