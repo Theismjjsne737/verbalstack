@@ -8,7 +8,7 @@ import { SENTENCES } from "../data/sentences";
 const STORAGE_KEY = "verbalstack_progress";
 
 function loadProgress() {
-  if (typeof window === "undefined") return null;
+  if (typeof window === "undefined") return {};
   try {
     return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
   } catch {
